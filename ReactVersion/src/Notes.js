@@ -10,8 +10,6 @@ class Notes extends React.Component {
         this.state = {
             notes: "test"
         };
-
- 
     }
 
     componentDidMount() {
@@ -20,8 +18,13 @@ class Notes extends React.Component {
             const storageNotes = window.localStorage.getItem("notes");
             console.log("Notes#componentDidMount - storageNotes: ", storageNotes);
             if (storageNotes) {
-                this.setState({notes: storageNotes});
-                this._textArea.value = storageNotes;
+                const notesParsed = JSON.parse(storageNotes);
+                console.log("Notes#componentDidMount - notesParsed = ", notesParsed);
+                const defaultNotes = notesParsed['default'];
+                console.log("Notes#componentDidMount - defaultNotes = ", defaultNotes);
+                this.setState({notes: defaultNotes});
+                this._textArea.value = defaultNotes;
+                this._categoryDropDown.value = "default";
             }
         } else {
             console.log("Notes#componentDidMount - storage NOT supported");
@@ -33,7 +36,12 @@ class Notes extends React.Component {
         console.log("updateNotes - starting ...");
         ///const notesToSave = this.state.notes;
         const notesToSave = this._textArea.value;
-        window.localStorage.setItem("notes", notesToSave);
+        const categoryToSave = document.getElementById("notes-category").value;
+        console.log("updateNotes - categoryToSave:", `|${categoryToSave}|`);
+        const notesObject = { [categoryToSave]: notesToSave};
+        const notesStringified = JSON.stringify(notesObject);
+        console.log("updateNotes - notesStringified:", notesStringified);
+        window.localStorage.setItem("notes", notesStringified);
         this._textArea.value = notesToSave;
 
         // animation
@@ -52,6 +60,17 @@ class Notes extends React.Component {
         return (
             <div id="notes">
                 <h2>Notes</h2>
+                <div id="category-container">
+                    <select id="notes-category"
+                        ref={
+                            function(el) {
+                                self._categoryDropDown = el;
+                            }
+                        }>
+                        <option>Select category</option>
+                        <option>default</option>
+                    </select>
+                </div>
                 <textarea id="msg-text-area" rows="10" cols="50" defaultValue={this.state.notes}
                           style={ {backgroundColor: '#72bcd4'} }
                           ref={
