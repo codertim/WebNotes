@@ -61,7 +61,7 @@ class Notes extends React.Component {
             <div id="notes">
                 <h2>Notes</h2>
                 <div id="category-container">
-                    <select id="notes-category"
+                    <select id="notes-category" style={styleDropDown}
                         ref={
                             function(el) {
                                 self._categoryDropDown = el;
@@ -85,6 +85,11 @@ class Notes extends React.Component {
         );
     }
 }
+
+const styleDropDown = {
+    marginBottom: 12,
+    marginTop: 12
+};
 
 export default Notes;
 
