@@ -54,12 +54,45 @@ class Notes extends React.Component {
           
     }
 
+    selectedNewCategory() {
+        console.log("##### selected new category");
+        const modalEl = document.querySelector("[data-modal]");
+        console.log("Notes#selectedNewCategory - modalEl:", modalEl);
+        modalEl.showModal();
+        const dialogCloseEl = document.querySelector("[data-close-modal]");
+        console.log("Notes#selectedNewCategory - dialogCloseEl:", dialogCloseEl);
+
+        dialogCloseEl.addEventListener("click", () => {
+            console.log("Notes#selectedNewCategory - click evt listener - closing modal");
+            modalEl.close();
+        });
+
+        modalEl.addEventListener("click", e => {
+            const dimensions = modalEl.getBoundingClientRect();
+            if (
+                e.clientX < dimensions.left ||
+                e.clientX > dimensions.right ||
+                e.clientY < dimensions.top ||
+                e.clientY > dimensions.bottom
+            ) {
+                modalEl.close();
+            }
+        });
+    }
+
     render() {
         var self = this;
 
         return (
             <div id="notes">
                 <h2>Notes</h2>
+                <dialog data-modal class="my-modal">
+                    <form method="dialog">
+                        <input type="text" id="new-group-text" />
+                        <button type="submit" data-cancel-modal>Cancel</button>
+                        <button type="submit" data-close-modal>Go</button>
+                    </form>
+                </dialog>
                 <div id="category-container">
                     <select id="notes-category" style={styleDropDown}
                         ref={
@@ -69,6 +102,7 @@ class Notes extends React.Component {
                         }>
                         <option>Select category</option>
                         <option>default</option>
+                        <option onClick={this.selectedNewCategory}>(New)</option>
                     </select>
                 </div>
                 <textarea id="msg-text-area" rows="10" cols="50" defaultValue={this.state.notes}

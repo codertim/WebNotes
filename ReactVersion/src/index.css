@@ -56,3 +56,20 @@ textarea#msg-text-area {
   animation-name: backgroundchangecolor;
   animation-duration: 3s;
 }
+
+
+.my-modal {
+  padding: 0.7rem;
+  /*
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+  */
+  background: #aaa;
+  border-radius: 0.25rem;
+}
+
+/* html dialog element overlay */
+dialog::backdrop {
+  background-color: hsla(201, 21%, 21%, 0.5);
+}
