@@ -85,7 +85,7 @@ class Notes extends React.Component {
 
         return (
             <div id="notes">
-                <h2>Notes</h2>
+                <h2>Web Notes</h2>
                 <dialog data-modal class="my-modal">
                     <form method="dialog">
                         <input type="text" id="new-group-text" />
