@@ -10,6 +10,9 @@ class Notes extends React.Component {
         this.state = {
             notes: "test"
         };
+
+        this.selectedCategory = this.selectedCategory.bind(this);
+        this.selectedNewCategory = this.selectedNewCategory.bind(this);
     }
 
     componentDidMount() {
@@ -17,13 +20,28 @@ class Notes extends React.Component {
             console.log("Notes#componentDidMount - storage supported");
             const storageNotes = window.localStorage.getItem("notes");
             console.log("Notes#componentDidMount - storageNotes: ", storageNotes);
+
+            // check if there were previous notes in local storage
             if (storageNotes) {
+                console.log("Notes#componentDidMount - notes found in local storage");
                 const notesParsed = JSON.parse(storageNotes);
                 console.log("Notes#componentDidMount - notesParsed = ", notesParsed);
                 const defaultNotes = notesParsed['default'];
                 console.log("Notes#componentDidMount - defaultNotes = ", defaultNotes);
-                this.setState({notes: defaultNotes});
-                this._textArea.value = defaultNotes;
+                console.log("Notes#componentDidMount - typsof defaultNotes = ", typeof(defaultNotes));
+
+                if (defaultNotes != undefined) {
+                    console.log("Notes#componentDidMount - default notes are NOT undefined");
+                    this.setState({notes: defaultNotes});
+                } else {
+                    console.log("Notes#componentDidMount - setting notes to empty string");
+                    this.setState({notes: ''}, () => {
+                        console.log("Notes#componentDidMount - set notes to:", this.state.notes);
+                    });
+                }
+
+                console.log("Notes#componentDidMount - this.state.notes:", this.state.notes);
+                ///this._textArea.value = defaultNotes;
                 this._categoryDropDown.value = "default";
             }
         } else {
@@ -54,16 +72,34 @@ class Notes extends React.Component {
           
     }
 
+    selectedCategory() {
+        console.log("##### selectedCategory - starting");
+        const catSelectorEl = document.getElementById("notes-category");
+        const selectedCat = catSelectorEl.value;
+        console.log("##### selectedCategory - selectedCat = ", selectedCat);
+
+        if (selectedCat === "selected-category") {
+            this.setState({notes: ''});
+            return;
+        }
+
+        if (selectedCat === "new-category") {
+            this.selectedNewCategory();
+            return;   // NOTE: early return
+        }
+    }
+
     selectedNewCategory() {
         console.log("##### selected new category");
         const modalEl = document.querySelector("[data-modal]");
         console.log("Notes#selectedNewCategory - modalEl:", modalEl);
         modalEl.showModal();
-        const dialogCloseEl = document.querySelector("[data-modal-close]");
-        console.log("Notes#selectedNewCategory - dialogCloseEl:", dialogCloseEl);
+        const dialogAddCategory = document.querySelector("[data-modal-new]");
+        console.log("Notes#selectedNewCategory - dialogAddCategory:", dialogAddCategory);
 
-        dialogCloseEl.addEventListener("click", () => {
-            console.log("Notes#selectedNewCategory - click evt listener - closing modal");
+        dialogAddCategory.addEventListener("click", () => {
+            console.log("Notes#selectedNewCategory - click evt listener - adding new category");
+            // TODO: get new category frmo text field and add it
             modalEl.close();
         });
 
@@ -87,32 +123,32 @@ class Notes extends React.Component {
         return (
             <div id="notes">
                 <h2>Web Notes</h2>
-                <dialog data-modal class="my-modal">
+                <dialog data-modal className="my-modal">
                     <form method="dialog">
                         <input type="text" id="new-group-text" />
                         <button type="submit" data-cancel-modal style={{marginLeft: '2em', padding: '0.5 em'}}>Cancel</button>
-                        <button type="submit" data-modal-close style={{marginLeft: '1em', padding: '0.5 em'}}>Go</button>
+                        <button type="submit" data-modal-new style={{marginLeft: '1em', padding: '0.5 em'}}>Go</button>
                     </form>
                 </dialog>
                 <div id="category-container">
-                    <select id="notes-category" style={styleDropDown}
+                    <select id="notes-category" style={styleDropDown} onChange={this.selectedCategory}
                         ref={
                             function(el) {
                                 self._categoryDropDown = el;
                             }
                         }>
-                        <option>Select category</option>
-                        <option>default</option>
-                        <option onClick={this.selectedNewCategory}>(New)</option>
+                        <option value="select-category">Select category</option>
+                        <option value="default">default</option>
+                        <option value="new-category" onClick={this.selectedNewCategory}>(New)</option>
                     </select>
                 </div>
-                <textarea id="msg-text-area" rows="10" cols="50" defaultValue={this.state.notes}
+                <textarea id="msg-text-area" rows="10" cols="50"
                           style={ {backgroundColor: '#72bcd4'} }
                           ref={
                               function(el) {
                                   self._textArea = el;
                               }
-                          }></textarea>
+                          }>{this.state.notes}</textarea>
                 <div>
                     <button type="button" onClick={this.updateNotes}>Update</button>
                 </div>
