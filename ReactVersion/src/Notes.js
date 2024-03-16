@@ -59,7 +59,7 @@ class Notes extends React.Component {
         const modalEl = document.querySelector("[data-modal]");
         console.log("Notes#selectedNewCategory - modalEl:", modalEl);
         modalEl.showModal();
-        const dialogCloseEl = document.querySelector("[data-close-modal]");
+        const dialogCloseEl = document.querySelector("[data-modal-close]");
         console.log("Notes#selectedNewCategory - dialogCloseEl:", dialogCloseEl);
 
         dialogCloseEl.addEventListener("click", () => {
@@ -67,6 +67,7 @@ class Notes extends React.Component {
             modalEl.close();
         });
 
+        // check if user clicks outside popup - close when they do
         modalEl.addEventListener("click", e => {
             const dimensions = modalEl.getBoundingClientRect();
             if (
@@ -89,8 +90,8 @@ class Notes extends React.Component {
                 <dialog data-modal class="my-modal">
                     <form method="dialog">
                         <input type="text" id="new-group-text" />
-                        <button type="submit" data-cancel-modal>Cancel</button>
-                        <button type="submit" data-close-modal>Go</button>
+                        <button type="submit" data-cancel-modal style={{marginLeft: '2em', padding: '0.5 em'}}>Cancel</button>
+                        <button type="submit" data-modal-close style={{marginLeft: '1em', padding: '0.5 em'}}>Go</button>
                     </form>
                 </dialog>
                 <div id="category-container">
