@@ -78,8 +78,10 @@ class Notes extends React.Component {
         const selectedCat = catSelectorEl.value;
         console.log("##### selectedCategory - selectedCat = ", selectedCat);
 
-        if (selectedCat === "selected-category") {
+        if (selectedCat === "select-category") {
+            console.log("##### selectedCategory - setting notes to empty");
             this.setState({notes: ''});
+            this._textArea.value = "";
             return;
         }
 
@@ -90,7 +92,7 @@ class Notes extends React.Component {
     }
 
     selectedNewCategory() {
-        console.log("##### selected new category");
+        console.log("##### selectedNewCategory - starting");
         const modalEl = document.querySelector("[data-modal]");
         console.log("Notes#selectedNewCategory - modalEl:", modalEl);
         modalEl.showModal();
@@ -144,11 +146,12 @@ class Notes extends React.Component {
                 </div>
                 <textarea id="msg-text-area" rows="10" cols="50"
                           style={ {backgroundColor: '#72bcd4'} }
+                          defaultValue={this.state.notes}
                           ref={
                               function(el) {
                                   self._textArea = el;
                               }
-                          }>{this.state.notes}</textarea>
+                          }></textarea>
                 <div>
                     <button type="button" onClick={this.updateNotes}>Update</button>
                 </div>
