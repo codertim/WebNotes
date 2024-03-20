@@ -8,25 +8,33 @@ class Notes extends React.Component {
         this.updateNotes = this.updateNotes.bind(this);
 
         this.state = {
+            customCategories: [],
             notes: "test"
         };
 
-        this.selectedCategory = this.selectedCategory.bind(this);
+        this.selectedCategory = this.selectCategory.bind(this);
         this.selectedNewCategory = this.selectedNewCategory.bind(this);
     }
 
     componentDidMount() {
         if (typeof(Storage) !== "undefined") {
             console.log("Notes#componentDidMount - storage supported");
-            const storageNotes = window.localStorage.getItem("notes");
-            console.log("Notes#componentDidMount - storageNotes: ", storageNotes);
+            const storageNotesStr = window.localStorage.getItem("notes");
+            console.log("Notes#componentDidMount - storageNotes: ", storageNotesStr);
 
             // check if there were previous notes in local storage
-            if (storageNotes) {
+            if (storageNotesStr) {
                 console.log("Notes#componentDidMount - notes found in local storage");
-                const notesParsed = JSON.parse(storageNotes);
-                console.log("Notes#componentDidMount - notesParsed = ", notesParsed);
-                const defaultNotes = notesParsed['default'];
+                const storageNotes = JSON.parse(storageNotesStr);
+                console.log("Notes#componentDidMount - storageNotes object = ", storageNotes);
+                const notesKeys = Object.keys(storageNotes);
+                console.log("Notes#componentDidMount - notesKeys:", notesKeys);
+                const customCats = notesKeys.filter((k) => k !== 'default');
+                console.log("Notes#componentDidMount - customCatss:", customCats);
+                if (customCats) {
+                    this.setState({customCategories: customCats});
+                }
+                const defaultNotes = storageNotes['default'];
                 console.log("Notes#componentDidMount - defaultNotes = ", defaultNotes);
                 console.log("Notes#componentDidMount - typsof defaultNotes = ", typeof(defaultNotes));
 
@@ -72,14 +80,14 @@ class Notes extends React.Component {
           
     }
 
-    selectedCategory() {
-        console.log("##### selectedCategory - starting");
+    selectCategory() {
+        console.log("##### selectCategory - starting");
         const catSelectorEl = document.getElementById("notes-category");
         const selectedCat = catSelectorEl.value;
-        console.log("##### selectedCategory - selectedCat = |" + selectedCat + "|");
+        console.log("##### selectCategory - selectedCat = |" + selectedCat + "|");
 
         if (selectedCat === "select-category") {
-            console.log("##### selectedCategory - setting notes to empty");
+            console.log("##### selectCategory - setting notes to empty");
             this.setState({notes: ''});
             this._textArea.value = "";
             return;
@@ -91,10 +99,14 @@ class Notes extends React.Component {
         }
 
         const notesStorageStr = window.localStorage['notes'];
-        console.log("##### selectedCategory - notesStorageStr:", notesStorageStr);
+        console.log("##### selectCategory - notesStorageStr:", notesStorageStr);
         const notesStorageObj = JSON.parse(notesStorageStr);
-        console.log("##### selectedCategory - notesStorageObj:", notesStorageObj);
-        const selectedNotes = notesStorageObj[selectedCat];
+        console.log("##### selectCategory - notesStorageObj:", notesStorageObj);
+        let selectedNotes = notesStorageObj[selectedCat];
+        console.log("##### selectCategory - selectedNotes from storage:", selectedNotes);
+        if(selectedNotes === undefined) {
+            selectedNotes = "";
+        }
         this.setState({notes: selectedNotes});
         this._textArea.value = selectedNotes;
     }
@@ -109,7 +121,10 @@ class Notes extends React.Component {
 
         dialogAddCategory.addEventListener("click", () => {
             console.log("Notes#selectedNewCategory - click evt listener - adding new category");
-            // TODO: get new category frmo text field and add it
+            const newCat = document.getElementById('new-group-text').value;
+            console.log("Notes#selectedNewCategory - click evt listener - new category:", newCat);
+            const allCats = [...this.state.customCategories, newCat];
+            this.setState({customCategories: allCats});
             modalEl.close();
         });
 
@@ -129,6 +144,12 @@ class Notes extends React.Component {
 
     render() {
         var self = this;
+        const customCats = this.state.customCategories;
+        console.log("##### Notes#render - customCategories:", customCats);
+        const customCategoryOptions = customCats.map((cat) =>
+            <option key={cat}>{cat}</option>
+        );
+        console.log("##### Notes#render - customCategoryOptions:", customCategoryOptions);
 
         return (
             <div id="notes">
@@ -149,6 +170,7 @@ class Notes extends React.Component {
                         }>
                         <option value="select-category">Select category</option>
                         <option value="default">default</option>
+                        {customCategoryOptions}
                         <option value="new-category" onClick={this.selectedNewCategory}>(New)</option>
                     </select>
                 </div>
