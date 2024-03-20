@@ -76,7 +76,7 @@ class Notes extends React.Component {
         console.log("##### selectedCategory - starting");
         const catSelectorEl = document.getElementById("notes-category");
         const selectedCat = catSelectorEl.value;
-        console.log("##### selectedCategory - selectedCat = ", selectedCat);
+        console.log("##### selectedCategory - selectedCat = |" + selectedCat + "|");
 
         if (selectedCat === "select-category") {
             console.log("##### selectedCategory - setting notes to empty");
@@ -89,6 +89,14 @@ class Notes extends React.Component {
             this.selectedNewCategory();
             return;   // NOTE: early return
         }
+
+        const notesStorageStr = window.localStorage['notes'];
+        console.log("##### selectedCategory - notesStorageStr:", notesStorageStr);
+        const notesStorageObj = JSON.parse(notesStorageStr);
+        console.log("##### selectedCategory - notesStorageObj:", notesStorageObj);
+        const selectedNotes = notesStorageObj[selectedCat];
+        this.setState({notes: selectedNotes});
+        this._textArea.value = selectedNotes;
     }
 
     selectedNewCategory() {
@@ -127,7 +135,7 @@ class Notes extends React.Component {
                 <h2>Web Notes</h2>
                 <dialog data-modal className="my-modal">
                     <form method="dialog">
-                        <input type="text" id="new-group-text" />
+                        <input type="text" id="new-group-text" required="" />
                         <button type="submit" data-cancel-modal style={{marginLeft: '2em', padding: '0.5 em'}}>Cancel</button>
                         <button type="submit" data-modal-new style={{marginLeft: '1em', padding: '0.5 em'}}>Go</button>
                     </form>
