@@ -155,6 +155,7 @@ class Notes extends React.Component {
             <div id="notes">
                 <h2>Web Notes</h2>
                 <dialog data-modal className="my-modal">
+                    {/* popup for adding a new note category */}
                     <form method="dialog">
                         <input type="text" id="new-group-text" required="" />
                         <button type="submit" data-cancel-modal style={{marginLeft: '2em', padding: '0.5 em'}}>Cancel</button>
@@ -170,6 +171,7 @@ class Notes extends React.Component {
                         }>
                         <option value="select-category">Select category</option>
                         <option value="default">default</option>
+                        {/* user-defined categories */}
                         {customCategoryOptions}
                         <option value="new-category" onClick={this.selectedNewCategory}>(New)</option>
                     </select>
