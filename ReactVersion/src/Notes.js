@@ -14,47 +14,82 @@ class Notes extends React.Component {
 
         this.selectedCategory = this.selectCategory.bind(this);
         this.selectedNewCategory = this.selectedNewCategory.bind(this);
+        this.loadStorageData = this.loadStorageData.bind(this);
+
+        this.initialNotes = this.loadStorageData();
     }
 
-    componentDidMount() {
+    loadStorageData() {
+        console.log("##### Notes#loadStorageData - starting");
+        let initNotes = 'TEST';
+
+        ///componentDidMount() {
         if (typeof(Storage) !== "undefined") {
-            console.log("Notes#componentDidMount - storage supported");
+            console.log("Notes#loadStorageData - storage supported");
             const storageNotesStr = window.localStorage.getItem("notes");
-            console.log("Notes#componentDidMount - storageNotes: ", storageNotesStr);
+            console.log("Notes#loadStorageData - storageNotes: ", storageNotesStr);
 
             // check if there were previous notes in local storage
             if (storageNotesStr) {
-                console.log("Notes#componentDidMount - notes found in local storage");
+                console.log("Notes#loadStorageData - notes found in local storage");
                 const storageNotes = JSON.parse(storageNotesStr);
-                console.log("Notes#componentDidMount - storageNotes object = ", storageNotes);
-                const notesKeys = Object.keys(storageNotes);
-                console.log("Notes#componentDidMount - notesKeys:", notesKeys);
-                const customCats = notesKeys.filter((k) => k !== 'default');
-                console.log("Notes#componentDidMount - customCatss:", customCats);
-                if (customCats) {
-                    this.setState({customCategories: customCats});
-                }
+                console.log("Notes#loadStorageData - storageNotes object = ", storageNotes);
+
                 const defaultNotes = storageNotes['default'];
-                console.log("Notes#componentDidMount - defaultNotes = ", defaultNotes);
-                console.log("Notes#componentDidMount - typsof defaultNotes = ", typeof(defaultNotes));
+                console.log("Notes#loadStorageData - defaultNotes = ", defaultNotes);
+                console.log("Notes#loadStorageData - typeof defaultNotes = ", typeof(defaultNotes));
+
+                setTimeout(() => {
+                    console.log("Notes#loadStorageData - setTimeout - this.state.notes:", this.state.notes);
+                }, 3000);
 
                 if (defaultNotes != undefined) {
-                    console.log("Notes#componentDidMount - default notes are NOT undefined");
-                    this.setState({notes: defaultNotes});
+                    console.log("Notes#loadStorageData - default notes are NOT undefined");
+                    //this.setState({notes: defaultNotes});
+                    initNotes = defaultNotes;
                 } else {
-                    console.log("Notes#componentDidMount - setting notes to empty string");
-                    this.setState({notes: ''}, () => {
-                        console.log("Notes#componentDidMount - set notes to:", this.state.notes);
-                    });
+                    console.log("Notes#loadStorageData - setting notes to empty string");
+                    //this.setState({notes: ''}, () => {
+                    //    console.log("Notes#componentDidMount - set notes to:", this.state.notes);
+                    //});
+                    initNotes = '';
                 }
 
-                console.log("Notes#componentDidMount - this.state.notes:", this.state.notes);
+                console.log("Notes#loadStorageData - this.state.notes:", this.state.notes);
                 ///this._textArea.value = defaultNotes;
-                this._categoryDropDown.value = "default";
+                ///this._categoryDropDown.value = "default";
+                this.initialNotes = initNotes;
             }
         } else {
-            console.log("Notes#componentDidMount - storage NOT supported");
+            console.log("Notes#v - storage NOT supported");
             alert("storage not supported");
+        }
+
+        return initNotes;
+    }
+
+    componentDidMount() {
+        console.log("##### Notes#componentDidMount - starting ...");
+        this._categoryDropDown.value = "default";
+        if(this.initialNotes) {
+            this.setState({notes: this.initialNotes});                    //this.setState({notes: defaultNotes});
+        } else {
+            this.setState({notes: ''}, () => {
+                console.log("Notes#componentDidMount - set notes to:", this.state.notes);
+            });
+        }
+
+        // user-defined custom categories
+        const storageNotesStr = window.localStorage.getItem("notes");
+        console.log("Notes#componentDidMount - storageNotes: ", storageNotesStr);
+        const storageNotes = JSON.parse(storageNotesStr);
+        console.log("Notes#componentDidMount - storageNotes object = ", storageNotes);
+        const notesKeys = Object.keys(storageNotes);
+        console.log("Notes#componentDidMount - notesKeys:", notesKeys);
+        const customCats = notesKeys.filter((k) => k !== 'default');
+        console.log("Notes#componentDidMount - customCatss:", customCats);
+        if (customCats) {
+            this.setState({customCategories: customCats});
         }
     }
 
@@ -178,7 +213,7 @@ class Notes extends React.Component {
                 </div>
                 <textarea id="msg-text-area" rows="10" cols="50"
                           style={ {backgroundColor: '#72bcd4'} }
-                          defaultValue={this.state.notes}
+                          defaultValue={this.initialNotes}
                           ref={
                               function(el) {
                                   self._textArea = el;
