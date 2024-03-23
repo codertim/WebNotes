@@ -5,6 +5,11 @@ class Notes extends React.Component {
     constructor(props) {
         super(props);
 
+        this.currentlySelectedCategory = 'default';
+        setTimeout(() => {
+            console.log("Notes#constructor - currentlySelectedCategory:", this.currentlySelectedCategory);
+        }
+        , 2000);
         this.updateNotes = this.updateNotes.bind(this);
 
         this.state = {
@@ -12,7 +17,7 @@ class Notes extends React.Component {
             notes: "test"
         };
 
-        this.selectedCategory = this.selectCategory.bind(this);
+        this.selectCategory = this.selectCategory.bind(this);
         this.selectedNewCategory = this.selectedNewCategory.bind(this);
         this.loadStorageData = this.loadStorageData.bind(this);
 
@@ -50,14 +55,12 @@ class Notes extends React.Component {
                 } else {
                     console.log("Notes#loadStorageData - setting notes to empty string");
                     //this.setState({notes: ''}, () => {
-                    //    console.log("Notes#componentDidMount - set notes to:", this.state.notes);
-                    //});
+                    //    console.log("Notes#componentDidMount - set notes to:", this.state.notes)
+                    //});;
                     initNotes = '';
                 }
 
                 console.log("Notes#loadStorageData - this.state.notes:", this.state.notes);
-                ///this._textArea.value = defaultNotes;
-                ///this._categoryDropDown.value = "default";
                 this.initialNotes = initNotes;
             }
         } else {
@@ -70,7 +73,7 @@ class Notes extends React.Component {
 
     componentDidMount() {
         console.log("##### Notes#componentDidMount - starting ...");
-        this._categoryDropDown.value = "default";
+        this._categoryDropDown.value = this.currentlySelectedCategory;
         if(this.initialNotes) {
             this.setState({notes: this.initialNotes});                    //this.setState({notes: defaultNotes});
         } else {
@@ -140,6 +143,7 @@ class Notes extends React.Component {
         let selectedNotes = notesStorageObj[selectedCat];
         console.log("##### selectCategory - selectedNotes from storage:", selectedNotes);
         if(selectedNotes === undefined) {
+            console.log("##### selectCategory - setting notes to empty string");
             selectedNotes = "";
         }
         this.setState({notes: selectedNotes});
@@ -179,10 +183,13 @@ class Notes extends React.Component {
 
     render() {
         var self = this;
+        if (this._categoryDropDown) {
+            console.log("##### Notes#render - this._categoryDropDown.value:", this._categoryDropDown.value);
+        }
         const customCats = this.state.customCategories;
         console.log("##### Notes#render - customCategories:", customCats);
         const customCategoryOptions = customCats.map((cat) =>
-            <option key={cat}>{cat}</option>
+            <option value={cat} key={cat}>{cat}</option>
         );
         console.log("##### Notes#render - customCategoryOptions:", customCategoryOptions);
 
@@ -198,7 +205,7 @@ class Notes extends React.Component {
                     </form>
                 </dialog>
                 <div id="category-container">
-                    <select id="notes-category" style={styleDropDown} onChange={this.selectedCategory}
+                    <select id="notes-category" style={styleDropDown} onChange={this.selectCategory}
                         ref={
                             function(el) {
                                 self._categoryDropDown = el;
