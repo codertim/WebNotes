@@ -96,17 +96,27 @@ class Notes extends React.Component {
         }
     }
 
+    getNotesObjecctFromLocalStorage(storageKey = "notes") {
+        let notesObject = {};
+        const storageNotesString = window.localStorage.getItem(storageKey);   // TODO: create global string for Notes
+        notesObject = JSON.parse(storageNotesString);
+        return notesObject;
+    }
+
     updateNotes() {
         console.log("updateNotes - starting ...");
         ///const notesToSave = this.state.notes;
-        const notesToSave = this._textArea.value;
+        const noteToSave = this._textArea.value;
         const categoryToSave = document.getElementById("notes-category").value;
         console.log("updateNotes - categoryToSave:", `|${categoryToSave}|`);
-        const notesObject = { [categoryToSave]: notesToSave};
+        let notesObject = this.getNotesObjecctFromLocalStorage();
+        //const notesObject = { [categoryToSave]: noteToSave};  TODO: remove when working
+        console.log("##### updateNOtes - notesObject:", notesObject);
+        notesObject[[categoryToSave]] = noteToSave;
         const notesStringified = JSON.stringify(notesObject);
         console.log("updateNotes - notesStringified:", notesStringified);
         window.localStorage.setItem("notes", notesStringified);
-        this._textArea.value = notesToSave;
+        this._textArea.value = noteToSave;
 
         // animation
         console.log("updateNotes - animating ....");
@@ -123,6 +133,7 @@ class Notes extends React.Component {
         const catSelectorEl = document.getElementById("notes-category");
         const selectedCat = catSelectorEl.value;
         console.log("##### selectCategory - selectedCat = |" + selectedCat + "|");
+        this.currentlySelectedCategory = selectedCat;
 
         if (selectedCat === "select-category") {
             console.log("##### selectCategory - setting notes to empty");
