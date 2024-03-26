@@ -173,6 +173,7 @@ class Notes extends React.Component {
             console.log("Notes#selectedNewCategory - click evt listener - adding new category");
             const newCat = document.getElementById('new-group-text').value;
             console.log("Notes#selectedNewCategory - click evt listener - new category:", newCat);
+            this._textArea.value = '';
             const allCats = [...this.state.customCategories, newCat];
             this.setState({customCategories: allCats});
             this.currentlySelectedCategory = newCat;
