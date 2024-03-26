@@ -173,10 +173,19 @@ class Notes extends React.Component {
             console.log("Notes#selectedNewCategory - click evt listener - adding new category");
             const newCat = document.getElementById('new-group-text').value;
             console.log("Notes#selectedNewCategory - click evt listener - new category:", newCat);
-            this._textArea.value = '';
-            const allCats = [...this.state.customCategories, newCat];
-            this.setState({customCategories: allCats});
-            this.currentlySelectedCategory = newCat;
+            console.log("##### selectedNewCategory - this.state.customCategories:", this.state.customCategories);
+
+            if (this.state.customCategories.find(k => k == newCat)) {
+                // already exists
+                console.log("##### selectedNewCategory - new category already exists");
+            } else {
+                // new category does not yet exists so ok to add
+                this._textArea.value = '';
+                const allCats = [...this.state.customCategories, newCat];
+                console.log("##### selectedNewCategory - updated allCats:", allCats);
+                this.setState({customCategories: allCats});
+                this.currentlySelectedCategory = newCat;
+            }
             modalEl.close();
         });
 
