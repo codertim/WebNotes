@@ -164,6 +164,7 @@ class Notes extends React.Component {
             console.log("Notes#selectedNewCategory - click evt listener - new category:", newCat);
             const allCats = [...this.state.customCategories, newCat];
             this.setState({customCategories: allCats});
+            this.currentlySelectedCategory = newCat;
             modalEl.close();
         });
 
@@ -179,6 +180,11 @@ class Notes extends React.Component {
                 modalEl.close();
             }
         });
+    }
+
+    componentDidUpdate() {
+        console.log("##### componentDidUpdate - starting  - this.currentlySelectedCategory:", this.currentlySelectedCategory);
+        this._categoryDropDown.value = this.currentlySelectedCategory;
     }
 
     render() {
@@ -199,6 +205,7 @@ class Notes extends React.Component {
                 <dialog data-modal className="my-modal">
                     {/* popup for adding a new note category */}
                     <form method="dialog">
+                        <label>New category:</label>
                         <input type="text" id="new-group-text" required="" />
                         <button type="submit" data-cancel-modal style={{marginLeft: '2em', padding: '0.5 em'}}>Cancel</button>
                         <button type="submit" data-modal-new style={{marginLeft: '1em', padding: '0.5 em'}}>Go</button>
