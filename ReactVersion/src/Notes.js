@@ -1,4 +1,5 @@
 import React from "react";
+import MiscPortalStuff from "./MiscPortalStuff";
 
 
 class Notes extends React.Component {
@@ -222,7 +223,6 @@ class Notes extends React.Component {
 
         return (
             <div id="notes">
-                <h2>Web Notes</h2>
                 <dialog data-modal className="my-modal">
                     {/* popup for adding a new note category */}
                     <form method="dialog">
@@ -257,6 +257,7 @@ class Notes extends React.Component {
                 <div>
                     <button type="button" onClick={this.updateNotes}>Update</button>
                 </div>
+                <MiscPortalStuff></MiscPortalStuff>
             </div>
         );
     }
