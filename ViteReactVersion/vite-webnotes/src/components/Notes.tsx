@@ -246,8 +246,8 @@ function Notes() {
                     <form method="dialog">
                         <label>New category:</label>
                         <input type="text" id="new-group-text" ref={newGroupTextEl} required />
-                        <button type="submit" data-cancel-modal style={{marginLeft: '2em', padding: '0.5 em'}}>Cancel</button>
-                        <button type="submit" data-modal-new style={{marginLeft: '1em', padding: '0.5 em'}}>Go</button>
+                        <button type="submit" data-cancel-modal style={{marginLeft: '2em', paddingLeft: '5 em'}}>Cancel</button>
+                        <button type="submit" data-modal-new style={{marginLeft: '1em', paddingLeft: '5 em'}}>Go</button>
                     </form>
                 </dialog>
                 <div id="category-container">

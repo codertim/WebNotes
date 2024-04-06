@@ -36,6 +36,7 @@ function App() {
       <main>
       <article>
         <div className="App">
+          <div className="text-xl">Web Notes!</div>
           <Notes />
           <header className="App-header">
             <a
