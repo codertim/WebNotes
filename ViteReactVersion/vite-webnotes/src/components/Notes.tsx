@@ -240,7 +240,7 @@ function Notes() {
 
     return (
 
-            <div id="notes">
+            <div id="notes" style={{display: 'flex', flexDirection: 'column'}}>
                 <dialog data-modal className="my-modal" ref={modalEl}>
                     {/* popup for adding a new note category */}
                     <form method="dialog">
@@ -265,7 +265,7 @@ function Notes() {
                           defaultValue={initialNotes}
                           ></textarea>
                 <div>
-                    <button type="button" className="hover:bg-blue-400 border-slate-200 h-10 px-6 bg-orange shadow rounded text-red w-56" onClick={updateNotes}>Update</button>
+                    <button type="button" style={{margin: '1rem'}} className="hover:bg-blue-400 border-slate-200 h-10 px-6 bg-orange shadow rounded text-red w-56" onClick={updateNotes}>Update</button>
                 </div>
             </div>
     );
