@@ -80,7 +80,11 @@ function Notes() {
         // user-defined custom categories
         const storageNotesStr = window.localStorage.getItem("notes");
         console.log("Notes#componentDidMount - storageNotes: ", storageNotesStr);
-        const storageNotes = JSON.parse(storageNotesStr || '');
+        if (!storageNotesStr) {
+            return;
+        }
+
+        const storageNotes = JSON.parse(storageNotesStr);
         console.log("Notes#componentDidMount - storageNotes object = ", storageNotes);
         const notesKeys = Object.keys(storageNotes);
         console.log("Notes#componentDidMount - notesKeys:", notesKeys);
@@ -250,7 +254,6 @@ function Notes() {
         console.log("##### Notes#render - customCategoryOptions:", customCategoryOptions);
 
     return (
-
             <div id="notes" style={{display: 'flex', flexDirection: 'column'}}>
                 <dialog data-modal className="my-modal" ref={modalEl}>
                     {/* popup for adding a new note category */}
