@@ -222,6 +222,17 @@ function Notes() {
         });
     };
 
+    const validateNoteText = () => {
+        console.log("##### validateNoteText - starting ...");
+        if ((newGroupTextEl.current as any).value.length < 2) {
+            console.log("##### validateNoteText - setting error message");
+            (newGroupTextEl.current as any).setCustomValidity("Need at least two characters");
+        } else {
+            console.log("##### validateNoteText - validation ok");
+            (newGroupTextEl.current as any).setCustomValidity("");
+        }
+    };
+
     const componentDidUpdate = () => {
         console.log("##### componentDidUpdate - starting  - this.currentlySelectedCategory:", currentlySelectedCategory);
         (notesCategoryEl as any).value = currentlySelectedCategory;
@@ -245,7 +256,7 @@ function Notes() {
                     {/* popup for adding a new note category */}
                     <form method="dialog">
                         <label>New category:</label>
-                        <input type="text" id="new-group-text" ref={newGroupTextEl} required />
+                        <input type="text" id="new-group-text" onInput={validateNoteText} ref={newGroupTextEl} required />
                         <button type="submit" data-cancel-modal style={{marginLeft: '2em', paddingLeft: '5 em'}}>Cancel</button>
                         <button type="submit" data-modal-new style={{marginLeft: '1em', paddingLeft: '5 em'}}>Go</button>
                     </form>

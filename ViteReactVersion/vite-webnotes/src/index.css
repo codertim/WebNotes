@@ -73,3 +73,11 @@ button:focus-visible {
 @tailwind components;
 @tailwind utilities;
 
+
+input:required {
+  background-color: lightyellow;
+}
+
+input:required:invalid {
+  background-color: yellow;
+}
