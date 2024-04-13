@@ -274,6 +274,7 @@ function Notes() {
                 <textarea id="msg-text-area" ref={_textAreaEl} rows={10} cols={50}
                           style={ {backgroundColor: '#72bcd4'} }
                           defaultValue={initialNotes}
+                          className="shadow rounded font-semibold"
                           ></textarea>
                 <div>
                     <button type="button" style={{margin: '1rem'}} className="hover:bg-blue-400 border-slate-200 h-10 px-6 bg-orange shadow rounded text-red w-56" onClick={updateNotes}>Update</button>
