@@ -81,3 +81,9 @@ input:required {
 input:required:invalid {
   background-color: yellow;
 }
+
+input:focus {
+  outline: 3px solid white;
+}
+
+
