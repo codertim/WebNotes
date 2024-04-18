@@ -264,7 +264,7 @@ function Notes() {
                         <button type="submit" data-modal-new style={{marginLeft: '1em', paddingLeft: '5 em'}}>Go</button>
                     </form>
                 </dialog>
-                <div id="category-container">
+                <div id="category-container" className="py-6">
                     <select id="notes-category" ref={notesCategoryEl} style={styleDropDown} onChange={selectCategory}
                         data-delete-ref={categoryDropDownEl}>
                         <option value="select-category">Select category</option>
@@ -277,7 +277,7 @@ function Notes() {
                 <textarea id="msg-text-area" ref={_textAreaEl} rows={10} cols={50}
                           style={ {backgroundColor: '#72bcd4'} }
                           defaultValue={initialNotes}
-                          className="shadow rounded font-semibold"
+                          className="shadow rounded font-semibold border-2 leading-6"
                           ></textarea>
                 <div>
                     <button type="button" style={{margin: '1rem'}} className="hover:bg-blue-400 border-slate-200 h-10 px-6 bg-orange shadow rounded text-red w-56" onClick={updateNotes}>Update</button>
