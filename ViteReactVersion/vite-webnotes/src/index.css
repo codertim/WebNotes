@@ -82,7 +82,7 @@ input:required:invalid {
   background-color: yellow;
 }
 
-input:focus {
+input[type="text"]:focus {
   outline: 3px solid white;
 }
 
