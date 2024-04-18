@@ -18,12 +18,12 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <div id="initial-header">Vite + React</div>
+      <div id="initial-header" className="hover:bg-blue-400">Vite + React</div>
 
       <main>
       <article>
         <div className="App">
-          <div className="text-xl">Web Notes!</div>
+          <div className="text-xl text-slate-300">Web Notes!</div>
           <Notes />
           <header className="App-header">
             <a
