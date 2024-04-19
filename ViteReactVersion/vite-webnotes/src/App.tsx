@@ -6,7 +6,6 @@ import './myscss/main.scss'
 import Notes from './components/Notes.tsx'
 
 function App() {
-  const [count, setCount] = useState(0)
 
   return (
     <>
