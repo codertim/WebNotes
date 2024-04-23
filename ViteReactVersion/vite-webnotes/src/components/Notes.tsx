@@ -280,7 +280,7 @@ function Notes() {
                           className="shadow rounded font-semibold border-2 leading-6"
                           ></textarea>
                 <div>
-                    <button type="button" style={{margin: '1rem'}} className="hover:bg-blue-400 border-slate-200 h-10 px-6 bg-orange shadow rounded text-red w-56" onClick={updateNotes}>Update</button>
+                    <button type="button" style={{margin: '1rem'}} className="hover:bg-blue-400 border-slate-200 h-10 px-6 bg-orange shadow-sm rounded-lg text-red w-56" onClick={updateNotes}>Update</button>
                 </div>
             </div>
     );
