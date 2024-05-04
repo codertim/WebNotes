@@ -22,7 +22,7 @@ function App() {
       <main>
       <article>
         <div className="App">
-          <div className="text-xl text-slate-300">Web Notes!</div>
+          <div className="text-xl text-slate-300 mt-4">Web Notes!</div>
           <Notes />
           <header className="App-header">
             <a
