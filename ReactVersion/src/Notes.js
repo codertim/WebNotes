@@ -140,7 +140,11 @@ class Notes extends React.Component {
             console.log("##### selectCategory - setting notes to empty");
             this.setState({notes: ''});
             this._textArea.value = "";
+            this._textArea.readOnly = "true";
             return;
+        } else {
+            // all other options below first option are editable
+            this._textArea.readOnly = null;
         }
 
         if (selectedCat === "new-category") {
