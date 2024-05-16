@@ -24,7 +24,7 @@ function App() {
         <div className="App">
           <div className="text-xl text-slate-300 mt-4">Web Notes!</div>
           <Notes />
-          <header className="App-header">
+          <header className="App-header min-h-12" style={{alignContent: "center"}} >
             <a
               className="App-link"
               href="https://reactjs.org"

@@ -87,3 +87,16 @@ input[type="text"]:focus {
 }
 
 
+/* @custom-media --small (100px <= width < 400px); */
+
+
+@media (100px <= width <= 500px) {
+    body {
+      background-color: yellow;
+    }
+}
+
+
+#notes {
+  width: clamp(100px, 75%, 400px);
+}

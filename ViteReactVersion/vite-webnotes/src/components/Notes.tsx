@@ -254,7 +254,7 @@ function Notes() {
         console.log("##### Notes#render - customCategoryOptions:", customCategoryOptions);
 
     return (
-            <div id="notes" style={{display: 'flex', flexDirection: 'column'}}>
+            <div id="notes" className='box-border' style={{display: 'flex', flexDirection: 'column'}}>
                 <dialog data-modal className="my-modal" ref={modalEl}>
                     {/* popup for adding a new note category */}
                     <form method="dialog">
@@ -275,7 +275,7 @@ function Notes() {
                     </select>
                 </div>
                 <textarea id="msg-text-area" ref={_textAreaEl} rows={10} cols={50}
-                          style={ {backgroundColor: '#72bcd4'} }
+                          style={ {backgroundColor: '#72bcd4', caretColor: "yellow"} }
                           defaultValue={initialNotes}
                           className="shadow rounded font-semibold border-2 leading-6 p-1 md:p-4"
                           ></textarea>
@@ -289,7 +289,8 @@ function Notes() {
 
 const styleDropDown = {
     marginBottom: 12,
-    marginTop: 12
+    marginTop: 12,
+    accentColor: "pink"
 };
 
 export default Notes;
