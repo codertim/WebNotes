@@ -254,7 +254,7 @@ function Notes() {
         console.log("##### Notes#render - customCategoryOptions:", customCategoryOptions);
 
     return (
-            <div id="notes" className='box-border' style={{display: 'flex', flexDirection: 'column'}}>
+            <div id="notes" className='box-border' style={{display: 'flex', flexDirection: 'column', gap: '2rem'}}>
                 <dialog data-modal className="my-modal" ref={modalEl}>
                     {/* popup for adding a new note category */}
                     <form method="dialog">
