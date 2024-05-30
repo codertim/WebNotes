@@ -264,7 +264,7 @@ function Notes() {
                         <button type="submit" data-modal-new style={{marginLeft: '1em', paddingLeft: '5 em'}}>Go</button>
                     </form>
                 </dialog>
-                <div id="category-container" className="py-6 my-2">
+                <div id="category-container" className="py-6 my-2 mt-4">
                     <select id="notes-category" ref={notesCategoryEl} style={styleDropDown} onChange={selectCategory}
                         data-delete-ref={categoryDropDownEl}  className="outline outline-offset-4 outline-1">
                         <option value="select-category">Select category</option>
