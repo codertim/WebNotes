@@ -275,12 +275,12 @@ function Notes() {
                     </select>
                 </div>
                 <textarea id="msg-text-area" ref={_textAreaEl} rows={10} cols={50}
-                          style={ {backgroundColor: '#72bcd4', caretColor: "yellow"} }
+                          style={ {backgroundColor: '#72bcd4', overflow: 'auto', caretColor: "yellow"} }
                           defaultValue={initialNotes}
                           className="shadow rounded font-semibold border-2 leading-6 p-1 md:p-4 hover:border-solid hover:border-blue-500"
                           ></textarea>
                 <div>
-                    <button type="button" style={{margin: '1rem'}} className="hover:bg-blue-400 border-slate-200 h-10 px-6 bg-orange shadow-sm rounded-lg text-red w-56" onClick={updateNotes}>Update</button>
+                    <button type="button" style={{margin: '1rem', boxShadow: 'inset 4px 4px 8px rgba(0, 0, 0, .75)'}} className="hover:bg-blue-400 border-slate-200 h-10 px-6 bg-orange rounded-lg text-red w-56" onClick={updateNotes}>Update</button>
                 </div>
             </div>
     );
