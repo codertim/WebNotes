@@ -44,3 +44,16 @@
 #initial-header {
   font-size: clamp(0.5rem, 5vh, 0.8rem);
 }
+
+
+:root {
+  --yellow: #8B8000;
+}
+
+article {
+  header {
+    color: var(--yellow);
+    font-size: 0.7rem;
+    margin-top: 3rem;
+  }
+}
