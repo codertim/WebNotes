@@ -268,6 +268,7 @@ function Notes() {
                     <select id="notes-category" ref={notesCategoryEl} style={styleDropDown} onChange={selectCategory}
                         data-delete-ref={categoryDropDownEl}  className="outline outline-offset-4 outline-1">
                         <option value="select-category">Select category</option>
+                        <hr />
                         <option value="default">default</option>
                         {/* user-defined categories */}
                         {customCategoryOptions}
