@@ -13,4 +13,9 @@ button {
 
 #update-button {
   background-image: radial-gradient(farthest-corner circle at 20% 40%, #1c4d5d, #333);
+
+  &:hover {
+    transform: scaleX(1.5);
+  }
 }
+
