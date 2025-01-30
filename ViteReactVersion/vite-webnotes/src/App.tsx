@@ -22,7 +22,7 @@ function App() {
       <main>
       <article>
         <div className="App">
-          <div className="text-xl text-center text-slate-300 mt-4 pt-8  font-semibold">Web Notes!</div>
+          <div className="text-3xl text-center text-slate-300 mt-4 pt-8  font-semibold">Web Notes!</div>
           <Notes />
           <header className="App-header min-h-12 font-sans" style={{alignContent: "center"}} >
             <a
