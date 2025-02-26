@@ -17,6 +17,7 @@ function App() {
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
+
       <div id="initial-header" className="hover:bg-blue-400 font-medium border-b leading-8 w-1/2 max-h-6 px-1 hidden">Vite + React</div>
 
       <main>
