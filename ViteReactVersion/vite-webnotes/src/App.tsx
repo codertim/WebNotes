@@ -10,14 +10,14 @@ function App() {
   return (
     <>
       <div className="w-full">
-        <a href="https://vitejs.dev" target="_blank">
+        <a href="https://vitejs.dev" target="_blank" className="inline-block">
           <img src={viteLogo} className="logo w-56 bg-white" alt="Vite logo" />
         </a>
-        <a href="https://react.dev" target="_blank">
+        <a href="https://react.dev" target="_blank" className="inline-block">
           <img src={reactLogo} className="logo react" alt="React logo" />
         </a>
       </div>
-      <div id="initial-header" className="hover:bg-blue-400 font-medium border-b leading-8 w-1/2 max-h-6 px-10">Vite + React</div>
+      <div id="initial-header" className="hover:bg-blue-400 font-medium border-b leading-8 w-1/2 max-h-6 px-1 hidden">Vite + React</div>
 
       <main>
       <article>
